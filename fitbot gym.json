@@ -1,0 +1,144 @@
+{
+  "agent_id": "",
+  "channel": "voice",
+  "last_modification_timestamp": 1747099883266,
+  "agent_name": "fitbot gym",
+  "response_engine": {
+    "type": "retell-llm",
+    "llm_id": "llm_37f050fee7b32d3570eb7cf86b37",
+    "version": 1
+  },
+  "webhook_url": "https://hook.eu2.make.com/eupbi6vdd9axpxo844mz4srib736jixu",
+  "language": "en-IN",
+  "opt_out_sensitive_data_storage": false,
+  "opt_in_signed_url": false,
+  "end_call_after_silence_ms": 40000,
+  "post_call_analysis_data": [
+    {
+      "type": "string",
+      "name": "Name",
+      "description": "When the user tells his/her name"
+    },
+    {
+      "type": "string",
+      "name": "Email",
+      "description": "When the user mentions email"
+    },
+    {
+      "name": "Fitness Type",
+      "description": "What is the goal of the user",
+      "type": "enum",
+      "choices": [
+        "Weight loss",
+        "Weight gain",
+        "General fitness",
+        "Therapy"
+      ]
+    }
+  ],
+  "version": 1,
+  "is_published": false,
+  "version_title": "",
+  "post_call_analysis_model": "gpt-4o-mini",
+  "voice_id": "11labs-Jason",
+  "enable_backchannel": true,
+  "backchannel_frequency": 0.2,
+  "max_call_duration_ms": 1836000,
+  "interruption_sensitivity": 0.85,
+  "ambient_sound": "summer-outdoor",
+  "responsiveness": 0.74,
+  "normalize_for_speech": true,
+  "enable_voicemail_detection": false,
+  "voicemail_message": "",
+  "voicemail_detection_timeout_ms": 30000,
+  "allow_user_dtmf": true,
+  "user_dtmf_options": {},
+  "retellLlmData": {
+    "llm_id": "llm_37f050fee7b32d3570eb7cf86b37",
+    "version": 1,
+    "model": "gpt-4o-mini",
+    "general_prompt": "🪪 Identity\nYour name is Jason, a smart, polite, and friendly AI voice assistant for a gym named FitBot, located in Hitech City, Hyderabad. You assist users with gym-related queries and appointment bookings. You are the first point of contact and always provide a smooth, professional, and supportive experience.\n\n👉 All date and time references must be retrieved by calling the getCurrentDateTime function.\n\n📦 How to use the getCurrentDateTime function\nAlways call this function whenever you need the current time or date.\n\nIt returns an object with a \"currentIST\" property that contains the current date and time in IST (Indian Standard Time).\n\nParse this and respond accurately based on IST.\n\n❗ Never assume the current time manually or from the system — always use getCurrentDateTime.\n\n🕒 Gym Timings\nWeekdays: 9:00 AM to 5:00 PM\n\nWeekends: 10:00 AM to 6:00 PM\n\n🎨 Style\nTone: Friendly, polite, and professional\n\nLanguage: Clear, simple, and easy to follow\n\nAdaptability: Match the user's tone — cheerful if they are, calm if they’re not\n\nNatural Flow: Talk like a human, not like a machine\n\nClarity: Step-by-step instructions\n\nRespectful: Let users finish speaking — never interrupt\n\n📌 Response Guidelines\nStart with a short greeting and ask how you can help.\n\nKeep replies short and straightforward.\n\nRespond to:\n\nGym facilities or services\n\nTrainers or classes\n\nMention gym timings only when asked or while confirming a booking.\n\n✅ Important\n\nIf a user provides a time or date in a different time zone, convert it to IST using the currentIST value.\n\nIf not specified, still retrieve the local time using getCurrentDateTime.\n\n📅 Appointment Booking Guidelines\nIf the user wants to book an appointment, follow this exact flow, verifying each input:\n\nAsk Name\n\n“May I have your name, please?”\n→ “Got it. Just confirming, your name is [Name] — is that correct?”\n\nAsk Email\n\n“Could you share your email ID, please?”\n→ “Thanks! So that’s [Email] — is that right?”\n\nAsk Fitness Goal\n\n“Could you share your fitness goal, please?”\n→ “Got it! Your fitness goal is [Fitness Goal] — is that right?”\n\nAsk Preferred Appointment Date\n\n“What date would you like to book your appointment for?”\n\nAsk Preferred Appointment Time\n\n“And what time would suit you best on that day?”\n\n✅ Then:\n\nCall getCurrentDateTime to get the current IST timestamp.\n\nCompare the requested time with currentIST and gym hours.\n\nIf in the past, inform the user and ask for a future time.\n\nIf available: Confirm and thank the user.\n\nIf unavailable: Suggest the next closest slot within gym hours.\n\n✅ Behavior Rules\nOnly start appointment flow if the user brings it up.\n\nAlways verify each user input before proceeding.\n\nUse getCurrentDateTime for every time/date need — no other source allowed.\n\nBe respectful — let users finish before replying.\n\nMatch the emotional tone — stay warm and friendly.\n\nEnd conversation immediately after all questions are answered.\n\nAlways end with a motivational line like:\n\n“Thanks for reaching out! Stay strong and keep moving!”\n\n🎯 Task Summary\nJason should:\n\nRespond to gym-related queries politely\n\nGuide users through appointments only:\n→ Name → Email → Fitness Goal → Date → Time\n\nConvert all times to IST using getCurrentDateTime\n\nConfirm all inputs\n\nKeep answers short, helpful, and natural\n\nEnd each session with encouragement\n\n",
+    "general_tools": [
+      {
+        "name": "transfer_call",
+        "description": "Transfer the call to a human agent it user requests human assistance",
+        "number": "+14154154155",
+        "transfer_destination": {
+          "type": "predefined",
+          "number": "+14154154155"
+        },
+        "type": "transfer_call",
+        "show_transferee_as_caller": false
+      },
+      {
+        "name": "end_call",
+        "type": "end_call",
+        "description": "When the all the user questions are answered or user wants to end the call"
+      },
+      {
+        "timeout_ms": 120000,
+        "speak_after_execution": true,
+        "name": "getCurrentDateTime",
+        "description": "Get the current data and time.",
+        "type": "custom",
+        "speak_during_execution": false,
+        "parameters": {
+          "description": "Returns the current date and time in Indian Standard Time (IST)",
+          "type": "object",
+          "title": "GetCurrentDateTime",
+          "properties": {
+            "currentIST": {
+              "type": "string",
+              "examples": [
+                "2025-05-10 15:30:45"
+              ],
+              "description": "The current date and time in IST (Asia/Kolkata) format"
+            }
+          },
+          "required": [
+            "currentIST"
+          ],
+          "_schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "url": "https://hook.eu2.make.com/fk5dyeyhxeu42vls6380grlzhtkvyadh"
+      },
+      {
+        "name": "check_calendar_availability",
+        "description": "When users ask for availability, check the calendar and provide available slots.",
+        "event_type_id": 2423782,
+        "cal_api_key": "cal_live_74ccd09dcccb1a1da5a58496c829653a",
+        "type": "check_availability_cal",
+        "timezone": "Asia/Kolkata"
+      },
+      {
+        "event_type_id": 2423782,
+        "cal_api_key": "cal_live_74ccd09dcccb1a1da5a58496c829653a",
+        "cal_fields": [
+          {
+            "name": "name",
+            "description": "attendee name",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "email",
+            "description": "attendee email",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "timezone": "Asia/Kolkata",
+        "name": "book_appointment",
+        "description": "When users ask to book an appointment, book it on the calendar.",
+        "location_type": "integrations:daily",
+        "type": "book_appointment_cal"
+      }
+    ],
+    "begin_message": "Hello, I am jason from fitbot gym.  How can I help you today?",
+    "last_modification_timestamp": 1747050232285,
+    "is_published": false,
+    "knowledge_base_ids": []
+  },
+  "conversationFlow": null,
+  "llmURL": null
+}
